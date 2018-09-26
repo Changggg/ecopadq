@@ -10,7 +10,8 @@ from datetime import datetime
 #Default base directory 
 basedir="/data/static/"
 spruce_data_folder="/data/local/spruce_data"
-host= 'ecolab.cybercommons.org'
+#host= 'ecolab.cybercommons.org'
+host= 'ecolab.nau.edu'
 host_data_dir = os.environ["host_data_dir"] 
 # "/home/ecopad/ecopad/data/static"
 
@@ -200,7 +201,7 @@ def teco_spruce_forecast(pars,forecast_year,forecast_day,temperature_treatment=0
     result_url = "http://{0}/ecopad_tasks/{1}".format(result['host'],result['task_id'])
     if public:
         data={'tag':public,'result_url':result_url,'task_id':task_id,'timestamp':datetime.now()}
-        db=MongoClient('ecopad_mongo',27017)
+        db=MongoClient("mongodb://quser:qpass@cybercom_mongo:27017/?ssl=true&ssl_ca_certs=/ssl/testca/cacert.pem&ssl_certfile=/ssl/client/mongodb.pem",27017)
         db.forecast.public.save(data)
 
     return result_url
